@@ -5,17 +5,15 @@ import "./App.css";
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
 
-const App = () => {
+const App = ({ match }) => {
+  const pageNumber = match.params.pageNumber || 1;
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(pageNumber);
   const [pages, setPages] = useState(1);
-
-  useEffect(() => {
-    window.scrollTo({ behavior: "smooth", top: "0px" });
-  });
 
   useEffect(() => {
     const fecthPosts = async () => {
@@ -46,13 +44,13 @@ const App = () => {
         <h3 className="error-text">{error}</h3>
       ) : (
         <>
-          <Pagination page={page} changePage={setPage} pages={pages} />
+          <Pagination page={page} pages={pages} changePage={setPage} />
           <div className="app__posts">
             {posts.map((post) => (
               <Card key={post._id} post={post} />
             ))}
           </div>
-          <Pagination page={page} changePage={setPage} pages={pages} />
+          <Pagination page={page} pages={pages} changePage={setPage} />
         </>
       )}
     </div>
