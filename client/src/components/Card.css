@@ -1,0 +1,26 @@
+.card {
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.card__authro {
+  font-size: 0.7rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.card__body {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
