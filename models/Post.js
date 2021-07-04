@@ -29,6 +29,12 @@ const UserSchema = new mongoose.Schema({
       "Please provide a valid email",
     ],
   },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "Please add a password"],
@@ -39,6 +45,11 @@ const UserSchema = new mongoose.Schema({
     type: String, 
     enum : ['USER','ADMIN', 'LEAGUE_ADMIN'], 
     default: 'user' 
+  },
+  userStatus: { 
+    type: String, 
+    enum : ['CREATED','VERIFIED', 'IN_REVIEW', 'REMOVED'], 
+    default: 'CREATED' 
   }, 
   resetPasswordToken: String,
   resetPasswordExpire: Date,
