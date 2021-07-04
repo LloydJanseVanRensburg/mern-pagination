@@ -4,6 +4,7 @@ import "./App.css";
 // Components
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
+import Button from '@material-ui/core/Button'
 
 const App = ({ match }) => {
   const pageNumber = match.params.pageNumber || 1;
@@ -53,6 +54,10 @@ const App = ({ match }) => {
           <Pagination page={page} pages={pages} changePage={setPage} />
         </>
       )}
+      <div className="container">
+        <button>noemal button</button>
+        <Button>Material Bnutton</Button>
+      </div>
     </div>
   );
 };
