@@ -3,6 +3,7 @@ const path = require('path')
 const express = require("express");
 const connectDB = require("./config/db");
 const postRoutes = require("./routes/postRoutes");
+const errorHandler = require("./middleware/error");
 
 connectDB();
 
@@ -12,6 +13,13 @@ app.use(express.json());
 //https://git.heroku.com/enigmatic-temple-25922.git
 //https://enigmatic-temple-25922.herokuapp.com/
 app.use("/api/v1/posts", postRoutes);
+app.use("/api/v1/auth", require("./routes/authRoute"));
+app.use("/api/v1/private", require("./routes/private"));
+
+// Error Handler Middleware
+app.use(errorHandler);
+
+
 console.log("buidl path", path.join(__dirname,'/client/build'));
 if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname,'/client/build')));
@@ -24,4 +32,9 @@ if(process.env.NODE_ENV === "production"){
     }); 
 }
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+process.on("unhandledRejection", (err, promise) => {
+    console.log(`Logged Error: ${err.message}`);
+    server.close(() => process.exit(1));
+  });
