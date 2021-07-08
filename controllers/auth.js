@@ -79,7 +79,7 @@ exports.forgotPassword = async (req, res, next) => {
       try {
         await sendEmail({
           to: "abhinav.kmit@gmail.com",
-          subject: "Password Reset Request",
+          subject: "Password Reset",
           text: message,
         });
   
