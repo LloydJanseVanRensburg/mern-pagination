@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import PrivateRoute from "./components/routing/PrivateRoute/PrivateRoute";
+
+// Screens
+import PrivateScreen from "./components/screens/PrivateScreen/PrivateScreen";
+import LoginScreen from "./components/screens/LoginScreen/LoginScreen";
+import RegisterScreen from "./components/screens/RegisterScreen/RegisterScreen";
+import ForgotPasswordScreen from "./components/screens/ForgotPassword/ForgotPasswordScreen";
+import ResetPasswordScreen from "./components/screens/ResetPasswordScreen/ResetPasswordScreen";
+
 import "./App.css";
 
 // Components
 import Card from "./components/Card";
 import Pagination from "./components/Pagination";
-import Button from '@material-ui/core/Button'
+import Button from "@material-ui/core/Button";
 
 const App = ({ match }) => {
   const pageNumber = match.params.pageNumber || 1;
@@ -38,27 +49,46 @@ const App = ({ match }) => {
   }, [page]);
 
   return (
-    <div className="app">
-      {loading ? (
-        <h3 className="loading-text">Loading...</h3>
-      ) : error ? (
-        <h3 className="error-text">{error}</h3>
-      ) : (
-        <>
-          <Pagination page={page} pages={pages} changePage={setPage} />
-          <div className="app__posts">
-            {posts.map((post) => (
-              <Card key={post._id} post={post} />
-            ))}
-          </div>
-          <Pagination page={page} pages={pages} changePage={setPage} />
-        </>
-      )}
-      <div className="container">
-        <button>noemal button</button>
-        <Button>Material Bnutton</Button>
+    //   <div className="app">
+    //     {loading ? (
+    //       <h3 className="loading-text">Loading...</h3>
+    //     ) : error ? (
+    //       <h3 className="error-text">{error}</h3>
+    //     ) : (
+    //       <>
+    //         <Pagination page={page} pages={pages} changePage={setPage} />
+    //         <div className="app__posts">
+    //           {posts.map((post) => (
+    //             <Card key={post._id} post={post} />
+    //           ))}
+    //         </div>
+    //         <Pagination page={page} pages={pages} changePage={setPage} />
+    //       </>
+    //     )}
+    //     <div className="container">
+    //       <button>noemal button</button>
+    //       <Button>Material Bnutton</Button>
+    //     </div>
+    //   </div>
+    <Router>
+      <div className="app">
+        <Switch>
+          <PrivateRoute exact path="/" component={PrivateScreen} />
+          <Route exact path="/login" component={LoginScreen} />
+          <Route exact path="/register" component={RegisterScreen} />
+          <Route
+            exact
+            path="/forgotpassword"
+            component={ForgotPasswordScreen}
+          />
+          <Route
+            exact
+            path="/passwordreset/:resetToken"
+            component={ResetPasswordScreen}
+          />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 };
 
