@@ -1,17 +1,32 @@
 const crypto = require("crypto");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const Joi = require('joi')
 const sendEmail = require("../utils/sendEmail");
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
-  // Check if email and password is provided
-  if (!email || !password) {
-    return next(new ErrorResponse("Please provide an email and password", 400));
-  }
-
   try {
+
+    const schema  = Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().min(8).required(),
+    });
+  
+    // schema options
+    const options = {
+      abortEarly: false, // include all errors
+      allowUnknown: true, // ignore unknown props
+      stripUnknown: true // remove unknown props
+    };
+  
+    const { error } = schema.validate(req.body, options);
+  
+    if(error?.details){
+      return next(new ErrorResponse(error?.details[0]?.message || "Bad Request", 400, "ValidationError"));
+    }
+  
     // Check that user exists by email
     const user = await User.findOne({ email }).select("+password");
 
@@ -36,6 +51,26 @@ exports.register = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   try {
+    
+    const schema  = Joi.object({
+      username: Joi.string().email().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().min(8).required(),
+    });
+  
+    // schema options
+    const options = {
+      abortEarly: false, // include all errors
+      allowUnknown: true, // ignore unknown props
+      stripUnknown: true // remove unknown props
+    };
+  
+    const { error } = schema.validate(req.body, options);
+  
+    if(error?.details){
+      return next(new ErrorResponse(error?.details[0]?.message || "Bad Request", 400, "ValidationError"));
+    }
+
     const user = await User.create({
       username,
       email,
@@ -55,6 +90,24 @@ exports.forgotPassword = async (req, res, next) => {
     const { email } = req.body;
   
     try {
+
+      const schema  = Joi.object({
+        email: Joi.string().email().required(),
+      });
+    
+      // schema options
+      const options = {
+        abortEarly: false, // include all errors
+        allowUnknown: true, // ignore unknown props
+        stripUnknown: true // remove unknown props
+      };
+    
+      const { error } = schema.validate(req.body, options);
+    
+      if(error?.details){
+        return next(new ErrorResponse(error?.details[0]?.message || "Bad Request", 400, "ValidationError"));
+      }
+
       const user = await User.findOne({ email });
   
       if (!user) {

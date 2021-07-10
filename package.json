@@ -11,11 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.14",
-    "bcryptjs": "^2.4.3",
+    "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.14",
     "nodemailer": "^6.4.17"
   },
   "devDependencies": {
