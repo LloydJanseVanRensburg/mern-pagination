@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
-const Joi = require('joi')
+const Joi = require('joi');
 const sendEmail = require("../utils/sendEmail");
 
 exports.login = async (req, res, next) => {
@@ -53,7 +53,7 @@ exports.register = async (req, res, next) => {
   try {
     
     const schema  = Joi.object({
-      username: Joi.string().email().required(),
+      username: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required(),
     });
