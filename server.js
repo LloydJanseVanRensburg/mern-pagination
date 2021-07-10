@@ -14,6 +14,7 @@ app.use(express.json());
 //https://enigmatic-temple-25922.herokuapp.com/
 app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/auth", require("./routes/authRoute"));
+app.use("/api/v1/admin", require("./routes/adminRoute"));
 app.use("/api/v1/private", require("./routes/private"));
 
 // Error Handler Middleware
