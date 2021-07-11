@@ -17,7 +17,6 @@ const App = () => {
     <Router>
       <div className="app">
         <Switch>
-          <PrivateRoute exact path="/" component={PrivateScreen} />
           <Route exact path="/login" component={LoginScreen} />
           <Route exact path="/register" component={RegisterScreen} />
           <Route
@@ -30,6 +29,7 @@ const App = () => {
             path="/passwordreset/:resetToken"
             component={ResetPasswordScreen}
           />
+          <PrivateRoute path="/" component={PrivateScreen} />
         </Switch>
       </div>
     </Router>
