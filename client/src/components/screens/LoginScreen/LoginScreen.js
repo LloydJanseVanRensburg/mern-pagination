@@ -12,6 +12,7 @@ const LoginScreen = ({ history }) => {
     if (localStorage.getItem("authToken")) {
       history.push("/");
     }
+    console.log("process.env", process.env)
   }, [history]);
 
   const loginHandler = async (e) => {
