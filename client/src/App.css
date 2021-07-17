@@ -1,7 +1,4 @@
-.app {
-  max-width: 1400px;
-  margin: 5rem auto;
-}
+
 
 .app__posts {
   display: flex;

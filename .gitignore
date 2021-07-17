@@ -13,7 +13,7 @@ node_modules/
 /build
 
 # misc
-.config.env
+config.env
 .env
 .DS_Store
 .env.local
